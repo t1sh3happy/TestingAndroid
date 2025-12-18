@@ -24,12 +24,13 @@ Appium Java Client
 Установить Chrome браузер
 Для мобильных тестов:
 Установить Appium:             
+                ```
                 npm install -g appium
                 appium driver install uiautomator2
+                ```
                 Установить Android Studio
                 
                 Создать эмулятор Android (рекомендуется API 30+)
-                
                 Установить приложение Wikipedia на эмулятор
 
 ## 🚀 Запуск тестов
