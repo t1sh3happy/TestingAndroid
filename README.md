@@ -1,128 +1,141 @@
-Wiki Automation Project — набор UI‑автотестов для русской Википедии (web) и Android‑приложения Wikipedia на связке Selenium + TestNG + Appium.
+Wiki Automation Project
+Набор UI-автотестов для русской Википедии (web) и Android-приложения Wikipedia на связке Selenium + TestNG + Appium.
 
-Стек и структура
-Язык: Java 11
+🚀 Быстрый старт
+bash
+# Клонировать репозиторий
+git clone https://github.com/your-username/wiki-automation.git
+cd wiki-automation
 
-Сборка: Maven
+# Запустить web-тесты
+mvn clean test -Pweb
 
-Тестовый фреймворк: TestNG
+# Запустить mobile-тесты
+mvn clean test -Pmobile
+📋 Стек технологий
+Компонент	Технология
+Язык	Java 11
+Сборка	Maven
+Тестовый фреймворк	TestNG
+Web-тестирование	Selenium WebDriver, WebDriverManager
+Mobile-тестирование	Appium Java Client, Appium Server (uiautomator2)
+📁 Структура проекта
+text
+├── pom.xml                    # зависимости и профили Maven
+├── src/
+│   └── test/
+│       ├── java/com/automation/
+│       │   ├── config/
+│       │   │   └── TestConfig.java    # конфигурация (web + mobile)
+│       │   ├── web/                   # страницы и тесты веб-Википедии
+│       │   │   ├── pages/             # Page Object Model
+│       │   │   └── tests/             # Web тесты
+│       │   └── mobile/                # страницы и тесты Android-приложения
+│       │       ├── pages/             # Page Object Model
+│       │       └── tests/             # Mobile тесты
+│       └── resources/
+│           ├── config.properties      # настройки окружения
+│           ├── testng-web.xml         # web-тест suite
+│           └── testng-mobile.xml      # mobile-тест suite
+└── README.md                   # этот файл
+⚙️ Настройка окружения
+1. Установка необходимого ПО
+Для web-тестов:
 
-Web: Selenium WebDriver, WebDriverManager
-
-Mobile: Appium Java Client, Appium Server (uiautomator2)
-
-Основная структура:
-
-pom.xml — зависимости и профили web / mobile
-
-src/test/java/com/automation/config/TestConfig.java — конфиг (web + mobile)
-
-src/test/java/com/automation/web/... — страницы и тесты веб‑Википедии
-
-src/test/java/com/automation/mobile/... — страницы и тесты Android‑приложения
-
-src/test/resources/config.properties — настройки окружения
-
-src/test/resources/testng-web.xml — web‑suite
-
-src/test/resources/testng-mobile.xml — mobile‑suite​
-
-Подготовка окружения
-1. Установки
 JDK 11+
 
 Maven 3.8+
 
-Node.js + Appium 3:
+Браузер Chrome или Firefox
+
+Для mobile-тестов (дополнительно):
+
+Node.js + Appium:
 
 bash
 npm install -g appium
 appium driver install uiautomator2
-Android SDK (через Android Studio или отдельно)
+Android Studio с установленным Android SDK
 
-2. Переменные среды (Windows)
-В переменные пользователя:
+Эмулятор Android или физическое устройство
 
-ANDROID_HOME = C:\Users\<USER>\AppData\Local\Android\Sdk
+2. Настройка конфигурации
+Отредактируйте файл src/test/resources/config.properties:
 
-ANDROID_SDK_ROOT = тот же путь
-
-В Path добавить:
-
-...\Android\Sdk\platform-tools
-
-Проверка:
-
-bash
-adb version
-3. Эмулятор / устройство
-Создать AVD (например, API 16 или 30) и запустить его.
-
-Проверить:
-
-bash
-adb devices
-# должен быть emulator-5554 device
-4. Appium сервер
-В отдельном окне:
-
-bash
-appium
-Проверка статуса: http://127.0.0.1:4723/status .
-
-Настройка config.properties
-src/test/resources/config.properties:
-
-text
-# Web
+properties
+# Web конфигурация
 web.base.url=https://ru.wikipedia.org
 web.browser=chrome
 web.timeout.seconds=10
 
-# Mobile
+# Mobile конфигурация
 mobile.platform.name=Android
 mobile.platform.version=16
 mobile.device.name=emulator-5554
 mobile.automation.name=UiAutomator2
-
 mobile.appium.server.url=http://127.0.0.1:4723
-
 mobile.app.package=org.wikipedia
 mobile.app.activity=org.wikipedia.main.MainActivity
-mobile.app.path=   # пусто, если приложение уже установлено
-Методы в TestConfig читают эти значения и формируют capabilities для WebDriver и AndroidDriver.​
-
-Запуск тестов
-Web‑тесты
+▶️ Запуск тестов
+Web-тесты
 bash
 mvn clean test -Pweb
-Выполняется testng-web.xml (класс com.automation.web.tests.WikipediaWebTests).
+Mobile-тесты
+Запустите Appium сервер:
 
-Mobile‑тесты
+bash
+appium
+Запустите Android эмулятор или подключите устройство
+
+Выполните тесты:
+
 bash
 mvn clean test -Pmobile
-Выполняется testng-mobile.xml (класс com.automation.mobile.tests.WikipediaMobileTests).
+Запуск всех тестов
+bash
+mvn clean test -Pall
+🧪 Тестовые сценарии
+🌐 Web-сценарии
+✅ Проверка отображения главной страницы
 
-Комбинированный suite (опционально)
-Можно создать testng-all.xml и использовать профиль -Pall, чтобы запускать web + mobile одним прогоном.​
+✅ Поиск статьи и проверка заголовка
 
-Основные сценарии
-Web
-Проверка отображения главной страницы.
+✅ Переход по ссылке «Заглавная страница»
 
-Поиск статьи и проверка заголовка.
+✅ Переход на страницу логина и проверка заголовка
 
-Переход по ссылке «Заглавная страница».
+📱 Mobile-сценарии
+✅ Запуск приложения и проверка главного экрана
 
-Переход на страницу логина и проверка заголовка.
+✅ Поиск статьи по ключевому слову и открытие первой статьи
 
-Mobile
-Запуск приложения и проверка главного экрана.
+✅ Проверка заголовка статьи
 
-Поиск статьи по ключевому слову и открытие первой статьи.
+✅ Скролл и работа с оглавлением
 
-Проверка заголовка статьи.
+✅ Поиск несуществующей статьи и проверка реакции приложения
 
-Скролл и работа с оглавлением.
+🔧 Устранение неполадок
+Проблемы с Appium
+bash
+# Проверка статуса сервера
+curl http://127.0.0.1:4723/status
 
-Поиск несуществующей статьи и проверка реакции приложения.​
+# Переустановка драйвера
+appium driver uninstall uiautomator2
+appium driver install uiautomator2
+Проблемы с Android
+bash
+# Проверка подключенных устройств
+adb devices
+
+# Перезапуск ADB сервера
+adb kill-server
+adb start-server
+Проблемы с Maven
+bash
+# Очистка кэша и обновление зависимостей
+mvn clean install -U
+
+# Пропуск тестов при сборке
+mvn clean compile -DskipTests
