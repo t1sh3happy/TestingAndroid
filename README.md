@@ -1,135 +1,140 @@
 # Testing Project
 Автоматизированные UI‑тесты для:
 
-- веб‑сайта **ru.wikipedia.org** (4 теста)
-- мобильного приложения **Wikipedia для Android** (5 тестов)
+веб‑сайта ru.wikipedia.org (4 теста)
+
+мобильного приложения Wikipedia для Android (5 тестов)
+
+## Стек технологий
+- Java 11+
+- Selenium WebDriver
+- Appium (UiAutomator2)
+- TestNG
+- Maven
+- WebDriverManager
+- Appium Java Client
+
+## Требования
+### Общие:
+
+- Java 11+
+- Maven 3.8+
+- Git
+
+### Для веб‑тестов:
+
+- Браузер **Google Chrome**
+- Доступ к `https://ru.wikipedia.org`
+
+### Для мобильных тестов:
+
+- Node.js + Appium:
+- npm install -g appium
+- appium driver install uiautomator2
+- Android Studio / Android SDK
+- Созданный Android‑эмулятор (рекомендуется API 30+, возможен API 16)
+- Приложение Wikipedia, установленное на эмуляторе/устройстве
+
+## Структура проекта
+src/
+└── test/
+├── java/
+│ └── com/automation/
+│ ├── config/ # Конфигурация (TestConfig)
+│ ├── web/ # Веб Page Object'ы и тесты
+│ └── mobile/ # Мобильные Page Object'ы и тесты
+└── resources/
+├── config.properties # Настройки web + mobile
+├── testng-web.xml # Suite для веб-тестов
+└── testng-mobile.xml # Suite для мобильных тестов
 
 ---
 
-## 📋 Стек технологий
-Java 11+
-Selenium WebDriver
-Appium
-TestNG
-Maven
-WebDriverManager
-Appium Java Client
+## Настройка окружения
 
-## 📋 Требования
+### Android SDK и переменные среды (Windows):
+- ANDROID_HOME = C:\Users<USER>\AppData\Local\Android\Sdk
+- ANDROID_SDK_ROOT = C:\Users<USER>\AppData\Local\Android\Sdk
+- В PATH добавить: C:\Users<USER>\AppData\Local\Android\Sdk\platform-tools
 
-Основные:
-Установить Java 11+
-Установить Maven 3.8+
-Установить Git
-Для веб-тестов:
-Установить Chrome браузер
-Для мобильных тестов:
-Установить Appium:             
-                ```
-                npm install -g appium
-                appium driver install uiautomator2
-                ```
-                Установить Android Studio
-                
-                Создать эмулятор Android (рекомендуется API 30+)
-                Установить приложение Wikipedia на эмулятор
+### Проверка:
+adb version
 
-## 🚀 Запуск тестов
-Все тесты
-```
-mvn clean test
-```
-### 1. Веб-тесты (сайт ru.wikipedia.org)
-```
-mvn clean test -Pweb
-```
+### Конфигурация проекта (src/test/resources/config.properties):
 
-
-### 2. Мобильные тесты (приложение Wikipedia)
-Приложение должно быть установлено на устройство/эмулятор
-
-Последовательность запуска:
-
-Запуск Android эмулятора
-
-```
-emulator -avd Pixel_5
-```
-
-
-Проверка подключения устройства
-
-```
-adb devices
-```
-Запуск Appium сервера
-
-```
-appium -p 4723
-```
-
-
-Запуск мобильных тестов
-
-```
-mvn clean test -Pmobile
-```
-📁 Структура проекта
-text
-src/test/java/com/automation/
-├── config/           # Конфигурация тестов
-├── web/              # Веб-тесты и Page Objects
-└── mobile/           # Мобильные тесты и Page Objects
-🔧 Настройка
-Перед запуском отредактируйте файл src/test/resources/config.properties:
-
-properties
-# Для веб-тестов
+Веб-тесты
 web.base.url=https://ru.wikipedia.org
 web.browser=chrome
+web.timeout.seconds=10
 
-# Для мобильных тестов
-mobile.device.name=emulator-5554
+Мобильные тесты
+mobile.platform.name=Android
 mobile.platform.version=16
-🧪 Тестовые сценарии
-Веб-тесты:
-✅ Проверка главной страницы
+mobile.device.name=emulator-5554
+mobile.automation.name=UiAutomator2
+mobile.appium.server.url=http://127.0.0.1:4723
 
-✅ Поиск статьи
+mobile.app.package=org.wikipedia
+mobile.app.activity=org.wikipedia.main.MainActivity
+mobile.app.path= # пусто, если приложение уже установлено
 
-✅ Навигация по сайту
+## Запуск тестов
+Все тесты по умолчанию (в зависимости от профиля в pom.xml):
+mvn clean test
 
-✅ Страница входа
+## Веб‑тесты (ru.wikipedia.org):
+mvn clean test -Pweb
 
-Мобильные тесты:
-✅ Запуск приложения
+## Мобильные тесты (приложение Wikipedia):
 
-✅ Поиск статьи
+- Запуск Android‑эмулятора:
+emulator -avd Pixel_5
+- Проверка подключения устройства:
+adb devices
+- Запуск Appium‑сервера:
+appium -p 4723
+- Запуск мобильных тестов:
+mvn clean test -Pmobile
 
-✅ Открытие статьи
+## Тестовые сценарии
+### Веб:
 
-✅ Навигация по контенту
+- Проверка главной страницы
+- Поиск статьи
+- Навигация по сайту (переход на «Заглавную страницу»)
+- Проверка страницы входа
 
-✅ Поиск несуществующей статьи
+### Мобильные:
 
-🔍 Устранение проблем
-Проблемы с Appium:
-bash
-# Проверка установки
+- Запуск приложения и проверка главного экрана
+- Поиск статьи по ключевому слову
+- Открытие статьи и проверка заголовка
+- Навигация по контенту (скролл, оглавление)
+- Поиск несуществующей статьи и проверка реакции приложения
+
+## Устранение проблем
+### Appium:
+
+Проверка установки:
 appium --version
 
-# Переустановка драйвера
+Переустановка драйвера UiAutomator2:
 appium driver uninstall uiautomator2
 appium driver install uiautomator2
-Проблемы с эмулятором:
-bash
-# Список доступных эмуляторов
+
+### Эмулятор / ADB:
+
+Список доступных эмуляторов:
 emulator -list-avds
 
-# Перезагрузка ADB
+Перезапуск ADB:
 adb kill-server
 adb start-server
-Проблемы с зависимостями:
-bash
-# Очистка и обновление
+
+Проверка подключённых устройств:
+adb devices
+
+### Maven / зависимости:
+
+Очистка и обновление:
 mvn clean install -U
