@@ -36,7 +36,7 @@
 - Приложение Wikipedia, установленное на эмуляторе/устройстве
 
 ## Структура проекта
-…
+```
 src/
 └── test/
 ├── java/
@@ -48,7 +48,7 @@ src/
 ├── config.properties # Настройки web + mobile
 ├── testng-web.xml # Suite для веб-тестов
 └── testng-mobile.xml # Suite для мобильных тестов
-…
+```
 
 ## Настройка окружения
 
