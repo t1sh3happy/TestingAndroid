@@ -15,6 +15,7 @@ WebDriverManager
 Appium Java Client
 
 ## 📋 Требования
+
 Основные:
 Установить Java 11+
 Установить Maven 3.8+
