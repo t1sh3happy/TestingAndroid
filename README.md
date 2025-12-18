@@ -33,11 +33,11 @@ Appium Java Client
 
 ## 🚀 Запуск тестов
 Все тесты
-```bash
+```
 mvn clean test
 ```
 ### 1. Веб-тесты (сайт ru.wikipedia.org)
-```bash
+```
 mvn clean test -Pweb
 ```
 
