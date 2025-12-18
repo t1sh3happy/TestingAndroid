@@ -49,26 +49,26 @@ mvn clean test -Pweb
 
 Запуск Android эмулятора
 
-    ```bash
+```
 emulator -avd Pixel_5
 ```
 
 
 Проверка подключения устройства
 
-    ```bash
+```
 adb devices
 ```
 Запуск Appium сервера
 
-    ```bash
+```
 appium -p 4723
 ```
 
 
 Запуск мобильных тестов
 
-    ```bash
+```
 mvn clean test -Pmobile
 ```
 📁 Структура проекта
